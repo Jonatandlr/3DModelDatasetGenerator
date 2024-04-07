@@ -1,6 +1,8 @@
 import open3d as o3d
 import numpy as np
 from time import sleep
+from PIL import  Image
+from rembg import remove
 
 
 
@@ -53,10 +55,29 @@ def creationWindow(mesh,name,output):
 
     o3d.visualization.gui.Application.instance.add_window(vis)
     vis.export_current_image(output)
-    sleep(0.5)
-    # o3d.visualization.gui.Application.instance.run()
 
+    
+
+    sleep(0.2)
     o3d.visualization.gui.Application.instance.run_one_tick()
+
+    #Remove bg
+    myImage = Image.open(output)
+    myCroppedImage=remove(myImage)
+    myCroppedImage.save(output)
+
+    #Cut the Image
+    try:
+        myImage = Image.open(output)
+        black = Image.new('RGBA', myImage.size)
+        myImage = Image.composite(myImage, black, myImage)
+        myCroppedImage = myImage.crop(myImage.getbbox())
+        myCroppedImage.save(output)
+    except:
+        print('Error cropping the image')
+
+
+
 
     vis.close()
 
@@ -90,24 +111,5 @@ if __name__ == '__main__':
 
     # Create the windows
     for i in range(len(meshArray)):
-        creationWindow(meshArray[i],f'{meshes[i//times]["name"]}_{i+1}',f'{meshes[i//times]["output"]}{meshes[i//times]["name"]}_{i+1}.png')
         print(f'Creating window {i}')
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        creationWindow(meshArray[i],f'{meshes[i//times]["name"]}_{i+1}',f'{meshes[i//times]["output"]}{meshes[i//times]["name"]}_{i+1}.png')
