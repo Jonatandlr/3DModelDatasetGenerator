@@ -16,9 +16,24 @@ o3d.visualization.gui.Application.instance.initialize()
 
 # Create a window
 vis = o3d.visualization.O3DVisualizer("nameVentana", 1280, 720)
-vis.set_background((0., 0.78, 0., 1.0), None)
+# vis.set_background((0., 0.78, 0., 1.0), None)
 vis.add_geometry("objeto",mesh)
 vis.add_geometry("bbox",bbox)
+vis.show_skybox(False)
+
+ma=np.array([0.0, 0.0, 0.0], dtype=np.float32).reshape(3, 1)
+scene=vis.scene
+# scene.set_lighting(scene.LightingProfile.SOFT_SHADOWS, (4, 5, 5))
+# render=o3d.visualization.RenderOption()
+# render.light_on=True
+
+#scena podria interesarme shader Unlit y standard
+
+#de lighting podria interesarme HDRmap en false y sun en true
+#la intensidad del sol
+
+
+
 
 vis.reset_camera_to_default()
 vis.animation_time_step = 1.0

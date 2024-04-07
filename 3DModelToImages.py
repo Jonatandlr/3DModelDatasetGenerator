@@ -111,5 +111,5 @@ if __name__ == '__main__':
 
     # Create the windows
     for i in range(len(meshArray)):
-        print(f'Creating window {i}')
+        print(f'Creating window {i+1}')
         creationWindow(meshArray[i],f'{meshes[i//times]["name"]}_{i+1}',f'{meshes[i//times]["output"]}{meshes[i//times]["name"]}_{i+1}.png')
